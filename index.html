@@ -3855,6 +3855,67 @@
         @keyframes tyFloat1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
         @keyframes tyFloat2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
+        /* ============================================================
+           GLOBAL RESPONSIVE OVERRIDES (MOBILE & TABLET)
+           ============================================================ */
+
+        @media (max-width: 768px) {
+            /* General Containers */
+            section { padding: 60px 20px !important; }
+            h2 { font-size: 28px !important; }
+            
+            /* Hero Section */
+            .hero { padding: 40px 20px 80px; }
+            .hero h1 { font-size: 48px; letter-spacing: -2px; }
+            nav { margin-bottom: 40px; }
+            
+            /* Problem & Solution */
+            .ps-card { flex-direction: column !important; padding: 24px !important; }
+            .ps-left, .ps-right { width: 100% !important; }
+            
+            /* User Persona */
+            .persona-grid { grid-template-columns: 1fr !important; }
+            
+            /* Research */
+            .research-grid { grid-template-columns: 1fr !important; }
+            .as-main-layout { flex-direction: column !important; gap: 32px !important; }
+            .as-left, .as-right { flex: 0 0 100% !important; width: 100% !important; text-align: center; }
+            .as-right { align-items: center; }
+            
+            /* App Showcase Sections (Stacking Phones) */
+            .ls-card, .sf-main-grid, .bk-outer-container, .fw-main-container, .pr-main-container { 
+                flex-direction: column !important; 
+                align-items: center !important; 
+                padding: 40px 20px !important;
+                gap: 40px !important;
+            }
+            
+            .ls-phone, .sf-phone-wrap, .bk-phone-case, .fw-phone-case, .pr-phone-case { 
+                width: 240px !important; 
+                margin: 0 auto !important;
+                transform: none !important;
+            }
+
+            /* Search Flow Specifics */
+            .sf-title-row { flex-direction: column; text-align: center; gap: 16px; }
+            .sf-desc { margin: 0 auto; }
+            
+            /* Thank You Section */
+            .ty-section { padding: 48px 24px !important; margin: 40px 16px !important; }
+            .ty-h1, .ty-h2 { font-size: 40px !important; }
+            .ty-badge-follow { position: static !important; transform: none !important; margin: 10px auto !important; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 36px; }
+            .ty-h1, .ty-h2 { font-size: 32px !important; }
+            .as-splash-img { width: 100% !important; max-width: 240px; }
+            .footer-credit { font-size: 11px !important; }
+            .uf-diagram-wrap { padding: 20px !important; }
+            .grid-cols { gap: 10px !important; }
+            .grid-col-label { font-size: 8px !important; }
+        }
+
         @media (max-width: 768px) {
             .ty-section { flex-direction: column; text-align: center; padding: 48px 24px; gap: 48px; margin: 60px 20px; }
             .ty-left { align-items: center; }
