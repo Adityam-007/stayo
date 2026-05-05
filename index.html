@@ -145,7 +145,6 @@
         .phones-container {
             position: relative;
             width: 100%;
-            max-width: 1200px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -153,7 +152,7 @@
             transform-style: preserve-3d;
             z-index: 20;
             padding: var(--container-padding);
-            margin-top: 0; /* Reset negative margin to prevent overlap */
+            margin-top: 20px;
         }
 
         @media (min-width: 1024px) {
@@ -169,7 +168,7 @@
         }
 
         .phone {
-            width: min(340px, 85vw);
+            width: min(300px, 80vw);
             aspect-ratio: 9/19.5;
             height: auto;
             background: #000;
@@ -265,7 +264,19 @@
         .phone.left {
             z-index: 5;
             display: block;
-            transform: scale(0.6) translateY(20px);
+            transform: scale(0.7) translateY(0);
+        }
+
+        @media (max-width: 767px) {
+            .phones-container {
+                flex-direction: column;
+                gap: 20px;
+                padding-top: 40px;
+            }
+            .phone.left {
+                margin-bottom: -180px; /* Overlap slightly but stack vertically */
+                opacity: 0.7;
+            }
         }
 
         @media (min-width: 480px) {
@@ -289,6 +300,12 @@
         .phone.right {
             z-index: 10;
             transform: translateX(0);
+        }
+
+        @media (max-width: 767px) {
+            .phone.right {
+                transform: scale(1) translateY(0) !important;
+            }
         }
 
         @media (min-width: 768px) {
@@ -3924,7 +3941,11 @@
         @keyframes tyFloat1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
         @keyframes tyFloat2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        /* ======================================        @media (max-width: 768px) {
+        /* ============================================================
+           GLOBAL RESPONSIVE OVERRIDES
+           ============================================================ */
+
+        @media (max-width: 768px) {
             /* General Containers */
             section { padding: var(--section-padding) var(--container-padding) !important; }
             h2 { font-size: var(--font-h2) !important; }
@@ -3955,7 +3976,7 @@
             }
             
             .ls-phone, .sf-phone-wrap, .bk-phone-case, .fw-phone-case, .pr-phone-case { 
-                width: min(240px, 80vw) !important; 
+                width: min(280px, 85vw) !important; 
                 height: auto !important;
                 aspect-ratio: 9/19.5;
                 margin: 0 auto !important;
