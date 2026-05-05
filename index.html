@@ -3939,46 +3939,106 @@
            ============================================================ */
 
         @media (max-width: 1024px) {
-            /* Global Overrides for Consistency */
-            .phones-container, .bk-outer-container, .sf-outer-container, .fw-main-container, .pr-main-container {
+            /* Truly Global Overrides for Consistency */
+            
+            /* All Main Containers to Vertical Stack */
+            .phones-container, 
+            .ps-container, 
+            .persona-grid, 
+            .research-grid, 
+            .as-main-layout, 
+            .ob-card, 
+            .ls-card, 
+            .sf-outer-container, 
+            .bk-outer-container, 
+            .home-card-wrap, 
+            .fw-main-container, 
+            .pr-main-container,
+            .ty-section {
                 flex-direction: column !important;
+                display: flex !important;
                 height: auto !important;
                 min-height: 0 !important;
                 padding: 40px 20px !important;
                 gap: 40px !important;
-            }
-
-            .phone, .bk-phone, .sf-phone, .fw-phone, .pr-phone, .home-phone {
+                max-width: 100% !important;
+                width: 100% !important;
+                align-items: center !important;
+                text-align: center !important;
                 position: static !important;
                 transform: none !important;
-                margin: 0 auto !important;
+            }
+
+            /* All Phone Mockups to Static & Scaled */
+            .phone, 
+            .bk-phone, 
+            .sf-phone, 
+            .fw-phone, 
+            .pr-phone, 
+            .home-phone, 
+            .ob-phone, 
+            .ls-phone, 
+            .as-phone, 
+            .as-splash-img,
+            .ty-mock {
+                position: static !important;
+                transform: none !important;
+                margin: 20px auto !important;
                 width: min(280px, 85vw) !important;
                 height: auto !important;
                 aspect-ratio: 9/19.5 !important;
                 opacity: 1 !important;
                 display: block !important;
+                z-index: 10 !important;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
             }
 
-            /* Floating elements reset */
-            .ps-floating-badge, .bk-floating-bubble, .sf-floating-map-elem, .pr-floating-badge {
+            /* All Floating / Creative Elements to Static Flow */
+            .ps-floating-badge, 
+            .badge-match, 
+            .badge-book,
+            .bk-floating-bubble, 
+            .sf-floating-map-elem, 
+            .pr-floating-badge,
+            .ty-badge-follow,
+            .ps-bg-orb {
                 position: static !important;
-                margin: 10px auto !important;
+                margin: 15px auto !important;
                 transform: none !important;
                 width: fit-content !important;
                 opacity: 1 !important;
                 display: block !important;
+                visibility: visible !important;
+                animation: none !important;
             }
 
-            /* Prevent empty sections */
+            /* Header & Text Adjustment */
+            h1, h2 { text-align: center !important; width: 100% !important; margin-left: auto !important; margin-right: auto !important; }
+            .hero-content, .ps-left, .ps-right, .as-left, .as-right, .sf-left, .sf-right, .home-left, .home-right {
+                width: 100% !important;
+                max-width: 100% !important;
+                text-align: center !important;
+                padding: 0 !important;
+            }
+
+            /* Prevent empty space / black pages */
             section {
                 min-height: 0 !important;
                 padding: 60px 20px !important;
+                overflow: hidden !important;
             }
 
-            /* Remove 3D effects on mobile */
+            /* Remove all 3D perspective to prevent clipping */
             * {
                 perspective: none !important;
                 transform-style: flat !important;
+            }
+            
+            /* Ensure images inside phones are visible */
+            .screen, .phone img {
+                opacity: 1 !important;
+                display: block !important;
+                visibility: visible !important;
             }
         }0px; position: static; }
             .ty-right { transform: translateX(0) translateY(40px); }
