@@ -23,21 +23,6 @@
             --input-bg: #F5F7FA;
             --font-main: 'Sora', 'DM Sans', sans-serif;
             --phone-shadow: 0 30px 80px rgba(124, 58, 237, 0.2);
-
-            /* Fluid Typography */
-            --font-hero: clamp(2rem, 8vw, 5.5rem);
-            --font-h2: clamp(1.25rem, 4vw, 2.5rem);
-            --font-body: clamp(0.875rem, 2vw, 1rem);
-            --font-label: clamp(0.75rem, 1.5vw, 0.875rem);
-
-            /* Fluid Spacing */
-            --section-padding: clamp(3rem, 10vw, 8rem);
-            --component-gap: clamp(1rem, 3vw, 2rem);
-            --card-padding: clamp(0.75rem, 2vw, 1.5rem);
-            --container-padding: clamp(1rem, 5vw, 4rem);
-
-            /* Layout */
-            --max-width: 1280px;
         }
 
         * {
@@ -52,73 +37,46 @@
             line-height: 1.5;
             overflow-x: hidden;
             background: #F8F4FF;
-            font-size: var(--font-body);
-        }
-
-        .container {
-            width: 100%;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
         }
 
         /* Hero Section */
         .hero {
             position: relative;
-            min-height: 100vh;
+            min-height: 110vh;
             background: var(--bg-gradient);
-            padding: var(--container-padding) 0;
-            display: grid;
-            grid-template-columns: 1fr;
+            padding: 2rem 0 0;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             color: var(--text-white);
             overflow: hidden;
-            gap: var(--component-gap);
-            contain: layout;
-        }
-
-        @media (min-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr 1fr;
-                padding-top: 4rem;
-            }
+            gap: 3rem;
         }
 
         nav {
             width: 100%;
-            max-width: var(--max-width);
+            max-width: 1440px;
             display: flex;
             justify-content: space-between;
-            padding: 0 var(--container-padding);
-            position: absolute;
-            top: var(--container-padding);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
+            padding: 0 4rem;
         }
 
         .nav-label {
             font-variant: small-caps;
             font-weight: 400;
             letter-spacing: 0.3em;
-            font-size: var(--font-label);
+            font-size: 0.8rem;
             text-transform: uppercase;
         }
 
         .header-block {
             text-align: center;
             z-index: 5;
-            padding: 0 var(--container-padding);
-        }
-
-        @media (min-width: 1024px) {
-            .header-block {
-                text-align: left;
-            }
+            /* Lowered so phones can overlap */
         }
 
         .subheading {
-            font-size: var(--font-label);
+            font-size: 0.8rem;
             font-weight: 300;
             letter-spacing: 0.4em;
             text-transform: uppercase;
@@ -129,7 +87,7 @@
         h1 {
             font-family: 'Sora', sans-serif;
             font-weight: 800;
-            font-size: var(--font-hero);
+            font-size: clamp(2.5rem, 6vw, 4.8rem);
             line-height: 1.05;
         }
 
@@ -145,46 +103,36 @@
         .phones-container {
             position: relative;
             width: 100%;
+            max-width: 1200px;
+            height: 700px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
-            padding: 40px var(--container-padding);
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: -3.8rem;
+            /* Adjusted to cover only the legs of the letters */
+            perspective: 1500px;
+            transform-style: preserve-3d;
             z-index: 20;
         }
 
-        @media (min-width: 1024px) {
-            .phones-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 2rem;
-                margin-top: -3.8rem;
-                perspective: 1500px;
-                transform-style: preserve-3d;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .phones-container {
-                margin-top: -3.8rem; /* Re-apply overlap only on desktop for design intent */
-            }
-        }
-
-        @media (min-width: 768px) {
-            .phones-container {
-                gap: 2rem;
-            }
-        }
-
         .phone {
-            width: min(280px, 85vw);
-            aspect-ratio: 9/19.5;
-            background: #1A0A2E;
-            border-radius: 40px;
+            width: 345px;
+            height: 690px;
+            background: #000;
+            border-radius: 58px;
             position: relative;
-            padding: 10px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            flex-shrink: 0;
+            /* Multi-layer frame for photorealism */
+            padding: 12px;
+            background: linear-gradient(135deg, #7c7c82 0%, #d4d4d8 15%, #7c7c82 30%, #f4f4f5 45%, #7c7c82 60%, #d4d4d8 85%, #7c7c82 100%);
+            box-shadow:
+                0 4px 10px rgba(0, 0, 0, 0.3),
+                inset 0 0 2px 1px rgba(255, 255, 255, 0.4),
+                var(--phone-shadow);
+            overflow: visible;
+            /* To allow buttons to sit outside */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: phoneUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
         .phone::after {
@@ -265,29 +213,30 @@
 
         .phone.left {
             z-index: 5;
-            transform: scale(0.9);
+            transform: translateX(84px) translateZ(-100px) rotateY(25deg) rotateX(5deg) rotateZ(-5deg) scale(0.9) translateY(30px);
+            animation-name: phoneUpLeft;
+            animation-delay: 0.1s;
+            box-shadow: var(--phone-shadow);
         }
 
-        @media (min-width: 1024px) {
-            .phone.left {
-                transform: translateX(84px) translateZ(-100px) rotateY(25deg) rotateX(5deg) rotateZ(-5deg) scale(0.9);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .phone.left {
+        @keyframes phoneUpLeft {
+            to {
+                opacity: 1;
                 transform: translateX(84px) translateZ(-100px) rotateY(25deg) rotateX(5deg) rotateZ(-5deg) scale(0.9) translateY(0);
             }
         }
 
         .phone.right {
             z-index: 10;
-            transform: scale(1);
+            animation-delay: 0.3s;
+            transform: translateX(-84px) translateZ(50px) rotateY(-10deg) rotateX(2deg) translateY(30px);
+            animation-name: phoneUpRight;
         }
 
-        @media (min-width: 1024px) {
-            .phone.right {
-                transform: translateX(-84px) translateZ(50px) rotateY(-10deg) rotateX(2deg);
+        @keyframes phoneUpRight {
+            to {
+                opacity: 1;
+                transform: translateX(-84px) translateZ(50px) rotateY(-10deg) rotateX(2deg) translateY(0);
             }
         }
 
@@ -595,8 +544,7 @@
             background: #f8fafc;
             border: 1px solid #f1f5f9;
             border-radius: 18px;
-            padding: 0 20px;
-            min-height: 44px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -624,8 +572,7 @@
             color: #fff;
             border: none;
             border-radius: 18px;
-            padding: 0 18px;
-            min-height: 44px;
+            padding: 18px;
             font-weight: 800;
             font-size: 16px;
             display: flex;
@@ -636,13 +583,6 @@
             box-shadow: 0 12px 24px rgba(168, 85, 247, 0.3);
             cursor: pointer;
             letter-spacing: 0.02em;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .find-btn {
-                width: auto;
-            }
         }
 
         .section-label {
@@ -683,7 +623,7 @@
         /* Bottom Quote Section */
         .quote-section {
             background: #fff;
-            padding: var(--section-padding) var(--container-padding);
+            padding: 140px 4rem 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -691,6 +631,7 @@
             position: relative;
             z-index: 50;
             margin-top: -70px;
+            /* Adjusted to show more of the mockup content */
         }
 
         .quote-container {
@@ -714,7 +655,7 @@
 
         .quote-text {
             font-family: 'Outfit', sans-serif;
-            font-size: var(--font-h2);
+            font-size: 2.6rem;
             font-weight: 500;
             color: #0f172a;
             line-height: 1.2;
@@ -828,7 +769,7 @@
         .case-study-container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: var(--section-padding) var(--container-padding);
+            padding: 100px 40px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: #F8F4FF;
         }
@@ -877,10 +818,9 @@
 
         .overview-tags {
             display: flex;
-            gap: var(--component-gap);
+            gap: 10px;
             align-items: center;
             margin-top: 32px;
-            flex-wrap: wrap;
         }
 
         .o-tag {
@@ -924,8 +864,8 @@
         }
 
         .meta-item {
-            padding: var(--card-padding) 0;
-            padding-left: var(--card-padding);
+            padding: 20px 0;
+            padding-left: 20px;
             position: relative;
             opacity: 0;
             transform: translateY(10px);
@@ -1128,7 +1068,7 @@
         /* ── Problem & Solution Section ── */
         .ps-section {
             background: #F8F4FF;
-            padding: var(--section-padding) var(--container-padding);
+            padding: 160px 40px;
             font-family: 'DM Sans', sans-serif;
             overflow: hidden;
             position: relative;
@@ -1435,11 +1375,11 @@
         .filter-box { height: 40px; border-radius: 12px; background: #F8FAFC; border: 1px solid #F1F5F9; }
 
         @media (max-width: 1000px) {
-            .ps-floating-badge, .ps-bg-orb { display: block; position: relative; margin: 10px auto; transform: none !important; animation: none; }
-            .ps-section { padding: var(--section-padding) var(--container-padding); }
-            .ps-container { height: auto; flex-direction: column; gap: var(--component-gap); }
-            .ps-card { position: static; width: 100%; max-width: 100%; transform: none !important; }
-            .ps-phone-wrap { transform: none; order: 2; margin: 0 auto; }
+            .ps-floating-badge, .ps-bg-orb { display: none; }
+            .ps-section { padding: 80px 20px; }
+            .ps-container { height: auto; flex-direction: column; gap: 40px; }
+            .ps-card { position: static; width: 100%; max-width: 400px; transform: none !important; }
+            .ps-phone-wrap { transform: none; order: 2; }
             .ps-problem-card { order: 1; }
             .ps-solution-card { order: 3; }
         }
@@ -1447,7 +1387,7 @@
         /* ── User Persona Section ── */
         .persona-section {
             background-color: #F8F4FF;
-            padding: var(--section-padding) var(--container-padding);
+            padding: 120px 40px;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
@@ -1942,11 +1882,6 @@
             color: #7C3AED;
         }
 
-        @media (max-width: 1024px) {
-            .as-left, .as-right { width: 100%; text-align: center; }
-            .as-main-layout { flex-direction: column; gap: 40px; }
-            .as-right { align-items: center; }
-        }
         @media (max-width: 768px) {
             .as-main-layout { flex-direction: column; gap: 32px; }
             .as-left, .as-right { flex: 1 1 100%; width: 100%; min-width: 100%; }
@@ -2037,9 +1972,8 @@
 
         @media (max-width: 768px) {
             .ob-header { flex-direction: column; gap: 16px; }
-            .ob-card { flex-direction: column; align-items: center; }
-            .ob-phone-side { display: block; transform: scale(0.8) translateY(0) !important; margin: 10px 0; }
-            .ob-phone-center { width: min(180px, 80vw); height: auto; aspect-ratio: 9/19.5; }
+            .ob-phone-side { display: none; }
+            .ob-phone-center { width: 180px; height: 360px; }
         }
 
         /* ── Login / Signup Section ── */
@@ -2272,16 +2206,16 @@
         .bk-p5-btn.sec { background: transparent; border: 1px solid #E5D5F5; color: #4A5568; }
 
         @media (max-width: 1150px) {
-            .bk-floating-bubble { position: static; margin: 10px auto; display: block; }
+            .bk-floating-bubble { display: none; }
         }
         @media (max-width: 1024px) {
-            .bk-outer-container { flex-direction: column; height: auto; padding: 40px 20px; gap: 30px; }
-            .bk-p1, .bk-p2, .bk-p3, .bk-p4, .bk-p5 { 
-                position: static; 
-                transform: none !important; 
-                width: min(280px, 85vw); 
-                margin: 0 auto;
-            }
+            .bk-p1, .bk-p5 { display: none; }
+        }
+        @media (max-width: 768px) {
+            .bk-p2, .bk-p4 { display: none; }
+            .bk-p3 { width: 200px; height: 400px; transform: none !important; }
+            .bk-header { flex-direction: column; gap: 16px; text-align: center; }
+            .bk-header-desc { max-width: none; }
         }
 
         /* — Search Flow Section — */
@@ -2402,18 +2336,18 @@
         .sf-nav-item.active span { color: #7C3AED; }
 
         @media (max-width: 1024px) {
-            .sf-outer-container { flex-direction: column; height: auto; min-height: 0; padding: 40px 20px; }
-            .sf-right { height: auto; perspective: none; display: flex; flex-direction: column; gap: 30px; width: 100%; }
-            .sf-phone { 
-                position: static; 
-                transform: none !important; 
-                width: min(280px, 85vw); 
-                margin: 0 auto; 
-                opacity: 1 !important;
-            }
-            .sf-floating-map-elem { position: static; margin: 10px auto; opacity: 1 !important; transform: none !important; }
-            .sf-left { flex: none; width: 100%; text-align: center; }
-            .sf-desc { margin: 0 auto; max-width: none; }
+            .sf-p1, .sf-p3 { opacity: 0.5; transform: scale(0.8) !important; }
+            .sf-p1 { left: -40px; }
+            .sf-p3 { right: -40px; }
+            .sf-floating-map-elem { display: none; }
+        }
+        @media (max-width: 768px) {
+            .sf-outer-container { flex-direction: column; padding: 40px 24px; text-align: center; gap: 24px; }
+            .sf-left { flex: none; width: 100%; padding: 0; transform: none !important; opacity: 1 !important; }
+            .sf-desc { max-width: none; margin-inline: auto; }
+            .sf-right { height: 420px; width: 100%; }
+            .sf-p1, .sf-p3 { display: none; }
+            .sf-p2 { transform: translateX(-50%) !important; width: 220px; height: 440px; }
         }
         .home-section { background-color: #F8F4FF; padding: 120px 40px; font-family: 'Plus Jakarta Sans', sans-serif; }
         .home-container { max-width: 1000px; margin: 0 auto; }
@@ -2528,12 +2462,14 @@
         .home-nav-pre-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .home-nav-pre-icon-wrap { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
         .home-nav-pre-icon-wrap.active { background: #EDE0FA; }
-        .home-nav-pre-label { font-size: 11px; font-weight: 600; color: #7C3AED; }        @media (max-width: 1024px) {
-            .home-card-wrap { flex-direction: column; padding: 40px 20px; gap: 30px; }
-            .home-left, .home-right { width: 100%; text-align: center; }
-            .home-phone { transform: none !important; margin: 0 auto; width: min(240px, 85vw); }
-            .home-header { text-align: center; }
-            .home-header-desc { margin: 0 auto; }
+        .home-nav-pre-label { font-size: 11px; font-weight: 600; color: #7C3AED; }
+
+        @media (max-width: 768px) {
+            .home-header { flex-direction: column; gap: 16px; }
+            .home-card-wrap { flex-direction: column; align-items: center; padding: 32px 16px; gap: 40px; }
+            .home-left, .home-right { width: 100%; }
+            .home-phone { width: 200px; height: 400px; }
+            .home-feature-img-wrap { height: 160px; }
         }
 
         /* ── Research Section ── */
@@ -3809,35 +3745,20 @@
         .pr-modal-btns { display: flex; gap: 8px; }
 
         @media (max-width: 1150px) {
-            .fw-decor-wrap, .pr-floating-badge { display: block; position: relative; margin: 10px auto; }
+            .fw-decor-wrap, .pr-floating-badge { display: none; }
         }
         @media (max-width: 1024px) {
-            .ps-floating-badge {
-                position: static;
-                margin: 10px auto;
-                transform: none !important;
-                width: fit-content;
-            }
-            .ps-card {
-                flex-direction: column;
-                gap: 30px;
-                padding: 40px 20px;
-            }
-            .ps-left, .ps-right {
-                width: 100%;
-                text-align: center;
-            }
-            .fw-outer-container { flex-direction: column; padding: var(--section-padding) var(--container-padding); text-align: center; gap: var(--component-gap); }
+            .fw-outer-container { flex-direction: column; padding: 40px 24px; text-align: center; gap: 40px; }
             .fw-left { order: 1; }
-            .fw-p1 { transform: rotate(0) !important; display: block; margin: 0 auto; }
+            .fw-p1 { transform: rotate(0) !important; }
             
-            .pr-p1, .pr-p3 { display: block; transform: scale(0.8) translateY(0) !important; }
-            .pr-p2 { width: min(220px, 80vw); height: auto; aspect-ratio: 9/19.5; transform: none !important; }
+            .pr-p1, .pr-p3 { display: none; }
+            .pr-p2 { width: 220px; height: 440px; transform: none !important; }
         }
         @media (max-width: 768px) {
             .fw-header, .pr-header { flex-direction: column; gap: 16px; text-align: center; }
             .fw-header-desc, .pr-header-desc { max-width: none; margin-inline: auto; }
-            .fw-p1 { display: block; transform: scale(0.8) !important; }
+            .fw-p1 { display: none; }
         }
         /* — Thank You Section — */
         .ty-section {
@@ -3856,7 +3777,7 @@
 
         .ty-left { position: relative; z-index: 2; max-width: 800px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
         .ty-heading-line {
-            font-size: var(--font-hero); font-weight: 800; letter-spacing: -3px; line-height: 1;
+            font-size: 72px; font-weight: 800; letter-spacing: -3px; line-height: 1;
             background: linear-gradient(135deg, #9B5FE3 0%, #7C3AED 40%, #C4A0E8 70%, #B8A0E8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
             background-size: 200% auto; animation: tyShimmer 4s ease-in-out infinite;
@@ -3935,112 +3856,71 @@
         @keyframes tyFloat2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
         /* ============================================================
-           GLOBAL RESPONSIVE OVERRIDES
+           GLOBAL RESPONSIVE OVERRIDES (MOBILE & TABLET)
            ============================================================ */
 
-        @media (max-width: 1024px) {
-            /* Truly Global Overrides for Consistency */
+        @media (max-width: 768px) {
+            /* General Containers */
+            section { padding: 60px 20px !important; }
+            h2 { font-size: 28px !important; }
             
-            /* All Main Containers to Vertical Stack */
-            .phones-container, 
-            .ps-container, 
-            .persona-grid, 
-            .research-grid, 
-            .as-main-layout, 
-            .ob-card, 
-            .ls-card, 
-            .sf-outer-container, 
-            .bk-outer-container, 
-            .home-card-wrap, 
-            .fw-main-container, 
-            .pr-main-container,
-            .ty-section {
-                flex-direction: column !important;
-                display: flex !important;
-                height: auto !important;
-                min-height: 0 !important;
+            /* Hero Section */
+            .hero { padding: 40px 20px 80px; }
+            .hero h1 { font-size: 48px; letter-spacing: -2px; }
+            nav { margin-bottom: 40px; }
+            
+            /* Problem & Solution */
+            .ps-card { flex-direction: column !important; padding: 24px !important; }
+            .ps-left, .ps-right { width: 100% !important; }
+            
+            /* User Persona */
+            .persona-grid { grid-template-columns: 1fr !important; }
+            
+            /* Research */
+            .research-grid { grid-template-columns: 1fr !important; }
+            .as-main-layout { flex-direction: column !important; gap: 32px !important; }
+            .as-left, .as-right { flex: 0 0 100% !important; width: 100% !important; text-align: center; }
+            .as-right { align-items: center; }
+            
+            /* App Showcase Sections (Stacking Phones) */
+            .ls-card, .sf-main-grid, .bk-outer-container, .fw-main-container, .pr-main-container { 
+                flex-direction: column !important; 
+                align-items: center !important; 
                 padding: 40px 20px !important;
                 gap: 40px !important;
-                max-width: 100% !important;
-                width: 100% !important;
-                align-items: center !important;
-                text-align: center !important;
-                position: static !important;
-                transform: none !important;
-            }
-
-            /* All Phone Mockups to Static & Scaled */
-            .phone, 
-            .bk-phone, 
-            .sf-phone, 
-            .fw-phone, 
-            .pr-phone, 
-            .home-phone, 
-            .ob-phone, 
-            .ls-phone, 
-            .as-phone, 
-            .as-splash-img,
-            .ty-mock {
-                position: static !important;
-                transform: none !important;
-                margin: 20px auto !important;
-                width: min(280px, 85vw) !important;
-                height: auto !important;
-                aspect-ratio: 9/19.5 !important;
-                opacity: 1 !important;
-                display: block !important;
-                z-index: 10 !important;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
-            }
-
-            /* All Floating / Creative Elements to Static Flow */
-            .ps-floating-badge, 
-            .badge-match, 
-            .badge-book,
-            .bk-floating-bubble, 
-            .sf-floating-map-elem, 
-            .pr-floating-badge,
-            .ty-badge-follow,
-            .ps-bg-orb {
-                position: static !important;
-                margin: 15px auto !important;
-                transform: none !important;
-                width: fit-content !important;
-                opacity: 1 !important;
-                display: block !important;
-                visibility: visible !important;
-                animation: none !important;
-            }
-
-            /* Header & Text Adjustment */
-            h1, h2 { text-align: center !important; width: 100% !important; margin-left: auto !important; margin-right: auto !important; }
-            .hero-content, .ps-left, .ps-right, .as-left, .as-right, .sf-left, .sf-right, .home-left, .home-right {
-                width: 100% !important;
-                max-width: 100% !important;
-                text-align: center !important;
-                padding: 0 !important;
-            }
-
-            /* Prevent empty space / black pages */
-            section {
-                min-height: 0 !important;
-                padding: 60px 20px !important;
-                overflow: hidden !important;
-            }
-
-            /* Remove all 3D perspective to prevent clipping */
-            * {
-                perspective: none !important;
-                transform-style: flat !important;
             }
             
-            /* Ensure images inside phones are visible */
-            .screen, .phone img {
-                opacity: 1 !important;
-                display: block !important;
-                visibility: visible !important;
+            .ls-phone, .sf-phone-wrap, .bk-phone-case, .fw-phone-case, .pr-phone-case { 
+                width: 240px !important; 
+                margin: 0 auto !important;
+                transform: none !important;
             }
-        }0px; position: static; }
+
+            /* Search Flow Specifics */
+            .sf-title-row { flex-direction: column; text-align: center; gap: 16px; }
+            .sf-desc { margin: 0 auto; }
+            
+            /* Thank You Section */
+            .ty-section { padding: 48px 24px !important; margin: 40px 16px !important; }
+            .ty-h1, .ty-h2 { font-size: 40px !important; }
+            .ty-badge-follow { position: static !important; transform: none !important; margin: 10px auto !important; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 36px; }
+            .ty-h1, .ty-h2 { font-size: 32px !important; }
+            .as-splash-img { width: 100% !important; max-width: 240px; }
+            .footer-credit { font-size: 11px !important; }
+            .uf-diagram-wrap { padding: 20px !important; }
+            .grid-cols { gap: 10px !important; }
+            .grid-col-label { font-size: 8px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .ty-section { flex-direction: column; text-align: center; padding: 48px 24px; gap: 48px; margin: 60px 20px; }
+            .ty-left { align-items: center; }
+            .ty-heading-line { font-size: 44px; }
+            .ty-badge-follow { right: 50%; transform: translateX(50%) scale(0); margin-top: 10px; position: static; }
             .ty-right { transform: translateX(0) translateY(40px); }
             .ty-mock { width: 180px; height: 320px; }
         }
